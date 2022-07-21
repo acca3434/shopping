@@ -100,4 +100,35 @@ nodemon으로 실행하면 저장할 때마다 페이지에 반영이 된다.
 설치 : npm install nodemon -g
 글로벌로 설치하면 다른 디렉토리에서도 사용할 수 있다.
 실행 : nodemon server.js
+
+웹팩이슈 때문에 server.js를 만들고 npm run build를 실행시키면
+신택스에러 <  가 뜬다
+
+왜이러는지 3시간동안 git만 4개만들고 지웠다^^
+
+이유는
+
+저 에러는 빌드할때 웹팩이 chunkFile을 JS가 아닌 HTML 구문으로 인식해서 그렇습니다.
+<DOCTYPE 으로 시작하는 html  의 <를 인식 하지못한다는 문법에러 입니다.
+
+해결책은
+
+package.json에 "homepage" : .,을 추가하고
+
+src/index.html head태그 부분 안에
+
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+와
+<base href="/" />
+을 추가하여야 해결된다
+
+더 꿀팁을 알려주자면
+
+처음 create react app를 생성하고나서
+
+바로 설정해주어야 나중에 run build를 실행하고 static/index.html도 자동으로 바뀐다
+
+끗
+
   */
